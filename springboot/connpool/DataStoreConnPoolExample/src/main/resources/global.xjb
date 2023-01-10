@@ -1,0 +1,24 @@
+<jaxb:bindings
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb"
+    xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+    jaxb:extensionBindingPrefixes="xjc"
+    version="2.1">
+
+    <jaxb:globalBindings generateElementProperty="false">
+        <xjc:simple />
+    </jaxb:globalBindings>
+
+    <jaxb:bindings schemaLocation="structures.xsd"
+        node="//xs:complexType[@name='Instruction']/xs:choice[1]
+        /xs:sequence[1]/xs:sequence/xs:element[@name='MultipleTimingModifier']">
+        <jaxb:property name="MultipleTimingModifier1"/>
+    </jaxb:bindings>
+
+    <jaxb:bindings schemaLocation="structures.xsd"
+        node="//xs:complexType[@name='Instruction']/xs:choice
+        /xs:sequence[1]/xs:sequence/xs:element[@name='TimingAndDuration']">
+        <jaxb:property name="TimingAndDuration1"/>
+    </jaxb:bindings>
+
+</jaxb:bindings>
