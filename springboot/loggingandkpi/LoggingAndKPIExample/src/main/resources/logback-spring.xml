@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true">
+
+ 	<property name="LOGS" value="./logs" />
+    
+    <appender name="SERVER_CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <withJansi>true</withJansi>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>
+                [%date{"yyyy-MM-dd'T'HH:mm:ss,SSSZ"}]-[%-5level]-[tid=%X{pn_tid}]-[%thread]-[%logger{0}]-[%-4.-4line]-%msg %ex{full}%n
+            </pattern>
+        </encoder>
+    </appender>
+    
+	<appender name="RollingFile"
+        class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS}/pn-applications-logs.log</file>
+        <encoder
+            class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <Pattern>%d %p %C{1.} [%t] %m%n</Pattern>
+        </encoder>
+
+        <rollingPolicy
+            class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- rollover daily and when the file reaches 10 MegaBytes -->
+            <fileNamePattern>${LOGS}/archived/pn-applications-logs-%d{yyyy-MM-dd}.%i.log
+            </fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy
+                class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+    </appender>    
+
+    <springProfile name="default,dev,qa">
+        <logger name="com.prescribenow" level="DEBUG" additivity="false">
+            <appender-ref ref="SERVER_CONSOLE" />
+            <appender-ref ref="RollingFile" />
+        </logger>
+        <root level="DEBUG">
+            <appender-ref ref="SERVER_CONSOLE" />
+            <appender-ref ref="RollingFile" />
+        </root>
+    </springProfile>
+    <springProfile name="!default,!dev,!qa">
+        <logger name="com.prescribenow" level="INFO" additivity="false">
+            <appender-ref ref="SERVER_CONSOLE" />
+            <appender-ref ref="RollingFile" />
+        </logger>
+
+        <root level="INFO">
+            <appender-ref ref="SERVER_CONSOLE" />
+            <appender-ref ref="RollingFile" />
+        </root>
+    </springProfile>
+</configuration>

@@ -1,0 +1,16 @@
+
+<jaxb:bindings xmlns:xs="http://www.w3.org/2001/XMLSchema"
+xmlns:jaxb="https://jakarta.ee/xml/ns/jaxb" xmlns:xjc="http://java.sun.com/xml/ns/jaxb/xjc"
+jaxb:extensionBindingPrefixes="xjc" version="3.0">
+
+
+<jaxb:bindings
+     schemaLocation="structures.xsd"
+     node="//xs:complexType[@name='Instruction']/xs:choice/xs:sequence[1]/xs:sequence[1]">
+     <jaxb:property name="seq1"/>
+</jaxb:bindings>
+
+
+
+
+</jaxb:bindings>

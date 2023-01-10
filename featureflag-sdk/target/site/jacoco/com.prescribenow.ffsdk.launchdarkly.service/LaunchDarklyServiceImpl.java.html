@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaunchDarklyServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">featureflag-sdk</a> &gt; <a href="index.source.html" class="el_package">com.prescribenow.ffsdk.launchdarkly.service</a> &gt; <span class="el_source">LaunchDarklyServiceImpl.java</span></div><h1>LaunchDarklyServiceImpl.java</h1><pre class="source lang-java linenums">package com.prescribenow.ffsdk.launchdarkly.service;
+
+import com.launchdarkly.sdk.LDUser;
+import com.launchdarkly.sdk.server.LDClient;
+import com.prescribenow.ffsdk.FeatureFlagConstants;
+import com.prescribenow.ffsdk.FeatureFlagService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+import java.util.Map;
+import java.util.UUID;
+
+@Service(FeatureFlagConstants.FF_CLIENT_LAUNCHDARKLY)
+@Primary
+<span class="fc" id="L19">public class LaunchDarklyServiceImpl implements FeatureFlagService {</span>
+
+    @Autowired
+    @Qualifier(&quot;ldClient&quot;)
+    private LDClient ldClient;
+
+<span class="fc" id="L25">    private static final Logger LOG = LoggerFactory.getLogger(LaunchDarklyServiceImpl.class);</span>
+
+    public &lt;T&gt;T evaluateFeatureFlag(String ffName, Map&lt;String,String&gt; attributes, Object defaultValue, Class&lt;T&gt; returnType) {
+        try {
+
+<span class="fc" id="L30">            Object returnValue = null;</span>
+<span class="fc" id="L31">            String userID = UUID.randomUUID().toString();</span>
+
+<span class="fc" id="L33">            LDUser user = buildLDUser(userID, attributes);</span>
+
+<span class="pc bpc" id="L35" title="2 of 3 branches missed.">            switch (returnType.getSimpleName()) {</span>
+                case &quot;Boolean&quot;:
+<span class="fc" id="L37">                    returnValue = ldClient.boolVariation(ffName, user, (Boolean) defaultValue);</span>
+<span class="fc" id="L38">                    break;</span>
+                case &quot;String&quot;:
+<span class="nc" id="L40">                    returnValue = ldClient.stringVariation(ffName, user, (String) defaultValue);</span>
+                    break;
+            }
+<span class="fc" id="L43">            LOG.info(&quot;Toggle State | generatedUserID={} | toggleKey={} | toggleValue={} | featureFlagDefaultValue={}&quot;,</span>
+                    userID, ffName, returnValue, defaultValue);
+<span class="fc" id="L45">            return returnType.cast(returnValue);</span>
+        }
+<span class="fc" id="L47">        catch(Exception e) {</span>
+<span class="fc" id="L48">            LOG.info(&quot;Exception occurred when determining toggle value. Returning false | toggleKey={} | exceptionMessage={}&quot; + ffName, e.getMessage(), e);</span>
+<span class="fc" id="L49">            return returnType.cast(defaultValue);</span>
+        }
+    }
+
+    protected LDUser buildLDUser(String userID, Map&lt;String,String&gt; attributes) {
+<span class="fc" id="L54">        LDUser user = new LDUser.Builder(userID)</span>
+<span class="fc" id="L55">                .anonymous(true)</span>
+<span class="fc" id="L56">                .build();</span>
+
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        if(attributes!= null &amp;&amp; !attributes.isEmpty()) {</span>
+<span class="fc" id="L59">            LOG.info(&quot;Attributes are NOT Empty&quot;);</span>
+<span class="fc bfc" id="L60" title="All 2 branches covered.">            for (Map.Entry&lt;String,String&gt; entry : attributes.entrySet()) {</span>
+<span class="fc" id="L61">                LOG.info(&quot;Adding to custom : Key = {} and Value = {}&quot;,entry.getKey(),entry.getValue());</span>
+<span class="fc" id="L62">                user = new LDUser.Builder(user)</span>
+<span class="fc" id="L63">                        .custom(entry.getKey(),entry.getValue())</span>
+<span class="fc" id="L64">                        .build();</span>
+<span class="fc" id="L65">            }</span>
+
+        }
+<span class="fc" id="L68">        return user;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

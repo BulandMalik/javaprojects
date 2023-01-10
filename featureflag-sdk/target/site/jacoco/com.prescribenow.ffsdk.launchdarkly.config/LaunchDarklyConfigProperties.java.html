@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>LaunchDarklyConfigProperties.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">featureflag-sdk</a> &gt; <a href="index.source.html" class="el_package">com.prescribenow.ffsdk.launchdarkly.config</a> &gt; <span class="el_source">LaunchDarklyConfigProperties.java</span></div><h1>LaunchDarklyConfigProperties.java</h1><pre class="source lang-java linenums">package com.prescribenow.ffsdk.launchdarkly.config;
+
+import com.prescribenow.ffsdk.launchdarkly.config.domain.Http;
+import com.prescribenow.ffsdk.launchdarkly.config.domain.Url;
+import com.prescribenow.ffsdk.launchdarkly.exception.ApplicationStartupException;
+import org.apache.commons.lang3.Validate;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
+
+import javax.annotation.PostConstruct;
+
+@Configuration
+@ConfigurationProperties(prefix=&quot;pn.launchdarkly&quot;)
+<span class="fc" id="L16">public class LaunchDarklyConfigProperties {</span>
+<span class="fc" id="L17">    private static final Logger LOG = LoggerFactory.getLogger(LaunchDarklyConfigProperties.class);</span>
+
+    private String sdkKey;
+    private boolean offline;
+    private Http http;
+    private Url url;
+
+    public boolean isOffline() {
+<span class="fc" id="L25">        return offline;</span>
+    }
+
+    public void setOffline(boolean offline) {
+<span class="fc" id="L29">        this.offline = offline;</span>
+<span class="fc" id="L30">    }</span>
+
+
+    public Http getHttp() {
+<span class="fc" id="L34">        return this.http;</span>
+    }
+
+    public void setHttp(Http http) {
+<span class="fc" id="L38">        this.http = http;</span>
+<span class="fc" id="L39">    }</span>
+
+    public Url getUrl() {
+<span class="fc" id="L42">        return this.url;</span>
+    }
+
+    public void setUrl(Url url) {
+<span class="fc" id="L46">        this.url = url;</span>
+<span class="fc" id="L47">    }</span>
+
+    public String getSdkKey() {
+<span class="fc" id="L50">        return sdkKey;</span>
+    }
+
+    public void setSdkKey(String sdkKey) {
+<span class="fc" id="L54">        this.sdkKey = sdkKey;</span>
+<span class="fc" id="L55">    }</span>
+
+    @PostConstruct
+    public void postConstruct() {
+
+<span class="fc bfc" id="L60" title="All 2 branches covered.">        if (this.getHttp() == null)</span>
+<span class="fc" id="L61">            LOG.error(&quot;HTTP is null&quot;);</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">        if (this.getUrl() == null)</span>
+<span class="fc" id="L63">            LOG.error(&quot;URL is null&quot;);</span>
+<span class="fc bfc" id="L64" title="All 4 branches covered.">        if (this.getHttp() == null || this.getUrl() == null) {</span>
+<span class="fc" id="L65">            LOG.error(&quot;Neither http, or url properties can be null. httpObj=[{}] urlObj=[{}]&quot;,</span>
+<span class="fc" id="L66">                    this.getHttp(), this.getUrl());</span>
+<span class="fc" id="L67">            throw new ApplicationStartupException(&quot;Neither sdkKey, http, or url can be null&quot;);</span>
+        }
+
+<span class="fc" id="L70">        Validate.notBlank(this.getSdkKey(), &quot;LD SDK Key cannot be null/blank&quot;);</span>
+<span class="fc" id="L71">        Validate.notBlank(this.getUrl().getBase(), &quot;LD Base URL cannot be null/blank&quot;);</span>
+<span class="fc" id="L72">        Validate.notBlank(this.getUrl().getStream(), &quot;LD Stream URL cannot be null/blank&quot;);</span>
+<span class="fc" id="L73">        Validate.notBlank(this.getUrl().getPolling(), &quot;LD Polling URL cannot be null/blank&quot;);</span>
+<span class="fc" id="L74">        Validate.notBlank(this.getUrl().getEvents(), &quot;LD Analytics Events URL cannot be null/blank&quot;);</span>
+
+<span class="fc" id="L76">    }</span>
+
+    public String toString() {
+
+<span class="fc" id="L80">        String ffCfgPropsStr = &quot;LaunchDarklyConfigProperties=[ &quot; + &quot;sdkKey=XXX, &quot; +</span>
+                //ffCfgPropsStr.append(this.sdkKey.toString());
+<span class="fc" id="L82">                this.http.toString() +</span>
+                &quot;, &quot; +
+<span class="fc" id="L84">                this.url.toString() +</span>
+                &quot; ]&quot;;
+<span class="fc" id="L86">        return ffCfgPropsStr;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

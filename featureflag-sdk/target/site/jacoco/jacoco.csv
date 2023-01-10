@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.exception,ApplicationStartupException,0,6,0,0,0,3,0,1,0,1
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.config,LaunchDarklyConfigProperties,0,126,0,8,0,32,0,16,0,12
+featureflag-sdk,com.prescribenow.ffsdk,FeatureFlagServiceFactory,0,29,0,2,0,8,0,4,0,3
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.config.domain,Http,4,53,0,0,1,16,1,7,1,7
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.config.domain,Url,0,60,0,0,0,18,0,10,0,10
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.utils,LaunchDarklyUtils,32,90,0,0,4,28,0,4,0,4
+featureflag-sdk,com.prescribenow.ffsdk.launchdarkly.service,LaunchDarklyServiceImpl,8,130,3,6,1,25,3,6,0,4
