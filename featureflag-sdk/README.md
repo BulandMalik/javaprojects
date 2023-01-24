@@ -15,6 +15,7 @@ Please reach out to the following folks if you have any questions.
 * <b>Owners</b>
   * Buland Malik
   * Anzer Salem
+  * Faizan Khokhar
   * Sarmad Ahmed
 * <b>Slack</b> 
   * For any FF related updates (config changes, status changes etc.) will be communicated via [`#pn_featureflags`](https://prescribenowworkspace.slack.com/archives/C04HS1258UX)

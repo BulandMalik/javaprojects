@@ -40,6 +40,7 @@ public class ClientsController {
             @RequestParam(required = false) String email) {
 
         FeatureFlagService ffSvc = featureFlagServiceFactory.getFeatureFlagService("launchdarkly");
+
         String key = "PN_ERX-1023_MULTI_TENANCY_ENABLED";
         Map<String, String> attributes = new HashMap<String,String>();
         attributes.put("tenant_id", tid);
