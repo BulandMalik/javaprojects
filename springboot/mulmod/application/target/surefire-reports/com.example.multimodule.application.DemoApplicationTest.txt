@@ -1,0 +1,10 @@
+-------------------------------------------------------------------------------
+Test set: com.example.multimodule.application.DemoApplicationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 1.404 s <<< FAILURE! - in com.example.multimodule.application.DemoApplicationTest
+contextLoads  Time elapsed: 0.168 s  <<< FAILURE!
+java.lang.AssertionError: 
+
+Expecting actual not to be null
+	at com.example.multimodule.application.DemoApplicationTest.contextLoads(DemoApplicationTest.java:27)
+

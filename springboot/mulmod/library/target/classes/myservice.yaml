@@ -1,0 +1,12 @@
+spring:
+  profiles: default, local
+service:
+  message: Hello, World!
+
+---
+
+spring:
+  profiles: prod
+service:
+  message: Hello, World!!!!
+
