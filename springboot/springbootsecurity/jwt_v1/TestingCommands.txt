@@ -1,0 +1,21 @@
+Signup a User
+curl -v -H "Content-Type: application/json" -d "{\"email\":\"nam@codejava.net\", \"password\":\"nam2020\"}" localhost:8080/signup
+
+
+
+Create a product:
+curl -v -H "Content-Type: application/json" -d "{\"name\": \"Microsoft Surface\", \"price\": 1000}" localhost:8080/products
+
+List products:
+curl localhost:8080/products | json
+
+Login:
+
+curl -v -H "Content-Type: application/json" -d "{\"email\":\"nam@codejava.net\", \"password\":\"nam2020\"}" localhost:8080/auth/login
+curl -v -H "Content-Type: application/json" -d "{\"email\":\"nam@codejava.net\", \"password\":\"$2a$10$SQ/oja4jea3KuFJW5jsAfufjToeYAqetsGS7s2tWV0JEbphLDjda2\"}" localhost:8080/auth/login
+
+
+Access protected API:
+curl -v -H "Authorization: Bearer <token>" localhost:8080/products
+
+curl -v -H "Authorization: Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiIxLG5hbUBjb2RlamF2YS5uZXQiLCJpc3MiOiJCdWxhbmQgTWFsaWsgSW5jLiIsImlhdCI6MTY5MDQzOTYyOSwiZXhwIjoxNjkwNDM5OTI5fQ.Z5KawhGhSnFN2hFhvXQ7LrOsLSbf066nkMAqr9lwqEgQ1NZtbAPojafT2MTcJT0-_y_NqTmgNKevqO-l7JUefA" localhost:8080/products

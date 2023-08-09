@@ -1,12 +1,12 @@
 spring:
   profiles: default, local
 service:
-  message: Hello, World!
+  message: Hello, World with default/local Profile!!!!
 
 ---
 
 spring:
   profiles: prod
 service:
-  message: Hello, World!!!!
+  message: Hello, World with Prod Profile!!!!
 
