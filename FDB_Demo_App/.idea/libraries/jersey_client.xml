@@ -1,0 +1,14 @@
+<component name="libraryTable">
+  <library name="jersey-client">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-client.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-common.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-container-servlet-core.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-container-servlet.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-media-jaxb.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/lib/jersey-server.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

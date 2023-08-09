@@ -1,0 +1,24 @@
+<component name="libraryTable">
+  <library name="aopalliance-repackaged-2.5.0-b32">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/aopalliance-repackaged-2.5.0-b32.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/hk2-api-2.5.0-b32.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/hk2-locator-2.5.0-b32.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/hk2-utils-2.5.0-b32.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/javassist-3.20.0-GA.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/javax.annotation-api-1.2.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/javax.inject-2.5.0-b32.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/javax.servlet-api-3.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/jaxb-api-2.2.7.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/jersey-guava-2.25.1.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/osgi-resource-locator-1.0.1.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/persistence-api-1.0.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/validation-api-1.1.0.Final.jar!/" />
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/org.osgi.core-4.2.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/Documents/prescribenow/FDB/jaxrs-ri/ext/org.osgi.core-4.2.0.jar!/OSGI-OPT/src" />
+    </SOURCES>
+  </library>
+</component>
