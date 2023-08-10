@@ -73,6 +73,24 @@ public class JwtTokenUtils {
                 .compact();*/
     }
 
+
+    public String generateAccessToken(Map<String, Object> claims) {
+
+        claims.put("roles", Arrays.asList("admin","user"));
+
+        // // Create JWS (JSON Web Signature) token
+        String jwtToken = Jwts.builder()
+                .setClaims(claims)
+                .setSubject(String.format("%s,%s", claims.get("sourceSystem"), claims.get("customerId")))
+                .setIssuer("Buland Malik Inc.")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + (tokenExpiryInSeconds * 1000) ))
+                .signWith(SignatureAlgorithm.HS512, secretSignKey)
+                .compact();
+
+        return jwtToken;
+    }
+
     private Key getEncryptionKey() {
         // Replace this with your actual public key for encryption (RSA) or shared secret key for symmetric encryption (AES)
         return new SecretKeySpec(secretEncryptKey.getBytes(), SignatureAlgorithm.HS256.getJcaName());

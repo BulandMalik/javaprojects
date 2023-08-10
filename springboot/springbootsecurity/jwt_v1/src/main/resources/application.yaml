@@ -32,3 +32,5 @@ app:
       signKey: test!!!@#!!!4500-~!%&!
       encryptKey: testMe!!!!
     expiryInSeconds: 300 #5 mins
+
+  apiSharedKey: 3DD2DEBEFDD478E0838C35986352EA7A

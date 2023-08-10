@@ -76,6 +76,7 @@ public class SecurityConfigurationUsingAnnotation {
                 //.anyRequest().permitAll()
                 .authorizeRequests()
                 .antMatchers("/signup","/auth/login", "/docs/**", "/users").permitAll()
+                .antMatchers("/generate-token").permitAll()
                 .anyRequest().authenticated()
                 .and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
