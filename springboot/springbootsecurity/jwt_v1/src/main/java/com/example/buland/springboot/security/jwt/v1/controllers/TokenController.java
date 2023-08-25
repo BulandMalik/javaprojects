@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.websocket.server.PathParam;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -26,6 +27,7 @@ public class TokenController {
     List<String> validCustomerIds = Arrays.asList("c1@mail.com", "c2@mail.com", "c3@mail.com");
 
     @PostMapping("/generate-token")
+    //@PostMapping("/auth/token/{tenantId}")
     public Map<String, String> generateToken(@RequestBody TokenRequest request) {
 
         String customerId = getCustomerId(request.getCustomerId());

@@ -15,7 +15,6 @@
     <groupId>com.example.buland.springboot.security</groupId>
     <artifactId>jwt_v1</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>war</packaging>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
@@ -85,31 +84,6 @@
             <scope>test</scope>
         </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-
-
     </dependencies>
 
-    <build>
-
-        <!--
-        Since the default WAR file name will automatically become Tomcat’s Context Path when deploying ****.war
-        to Tomcat, we can adjust the <build><finalName> setting in pom.xml to specify the final output file name.
-        We can use ${project.artifactId}, a built-in Maven attribute, to get the artifactId of the project as the file name.
-        -->
-        <finalName>${project.artifactId}</finalName>
-        <resources>
-            <resource>
-                <directory>src/main/resources</directory>
-                <filtering>true</filtering>
-                <excludes>
-                    <exclude>**/conf.properties</exclude>
-                </excludes>
-            </resource>
-        </resources>
-    </build>
 </project>

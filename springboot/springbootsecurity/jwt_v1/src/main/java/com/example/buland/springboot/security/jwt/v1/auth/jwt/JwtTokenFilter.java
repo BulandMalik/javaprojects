@@ -125,7 +125,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             appUser.setId(Integer.parseInt(jwtSubject[0]));
         }
         catch(NumberFormatException nfe) {
-            appUser.setId(-1);
+            appUser.setId(-1); //Its just a hack
         }
 
         appUser.setEmail(jwtSubject[1]);

@@ -8,5 +8,9 @@ public class TokenRequest {
     private String customerId;
     private String sourceSystem;
 
+    private String customerAPIKey; //encryopted + encoded
+    private String email; //encryopted + encoded
+    private String tenantId;
+
     // Getters and setters
 }

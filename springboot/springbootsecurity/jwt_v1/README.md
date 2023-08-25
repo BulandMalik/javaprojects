@@ -314,3 +314,36 @@ ServletRequestAttributes attr = (ServletRequestAttributes)
     RequestContextHolder.currentRequestAttributes();
 HttpSession session= attr.getRequest().getSession(true); // true == allow create
 ```
+
+### Running with Standalone Tomcat
+Apache states that the Jakarta EE platform represents the evolution of the Java EE platform. Tomcat 10 and later versions implement specifications that were developed as part of Jakarta EE. In contrast, Tomcat 9 and earlier versions implement specifications that were developed as part of Java EE. Consequently, applications that were developed for Tomcat 9 and earlier will not run on Tomcat 10. Nonetheless, there may still be ways to address this issue.
+[Tomcat 10 Key things to keep in mind](https://www.appsdeveloperblog.com/deploy-a-spring-boot-rest-app-as-a-war-to-tomcat-10/#google_vignette)
+
+### Steps to create WAR FIle
+1. Set packagaing as `war` inside pom.xml
+2. Add Tomcat Dependency
+```aidl
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-tomcat</artifactId>
+    <scope>provided</scope>
+</dependency>
+```
+3. To run the application from Tomcat in the classical way, extend SpringBootServletInitializer in the main application and override the configure method:
+```aidl
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+
+@SpringBootApplication
+public class Tomcat10Application extends SpringBootServletInitializer {
+    public static void main(String[] args) {
+        SpringApplication.run(Tomcat10Application.class, args);
+    }
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
+        return builder.sources(Tomcat10Application.class);
+    }
+}
+```
