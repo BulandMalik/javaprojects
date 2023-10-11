@@ -65,6 +65,12 @@
             <artifactId>featureflag-sdk</artifactId>
             <version>1.0.2.0</version>
         </dependency>
+        <!-- Braintree SDK for payment processing -->
+        <dependency>
+            <groupId>com.braintreepayments.gateway</groupId>
+            <artifactId>braintree-java</artifactId>
+            <version>3.26.0</version> <!-- Use the latest Braintree version -->
+        </dependency>
     </dependencies>
 
     <build>

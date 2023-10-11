@@ -1,15 +1,21 @@
 package com.baeldung.springbootreact.controller;
 
 import com.baeldung.springbootreact.domain.Client;
+import com.baeldung.springbootreact.payment.dtos.PaymentRequest;
+import com.baeldung.springbootreact.payment.model.Tenant;
+import com.baeldung.springbootreact.payment.service.PaymentService;
+import com.baeldung.springbootreact.payment.service.TenantService;
 import com.baeldung.springbootreact.repository.ClientRepository;
 import com.prescribenow.ffsdk.FeatureFlagService;
 import com.prescribenow.ffsdk.FeatureFlagServiceFactory;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Collections;
