@@ -5,13 +5,12 @@ import com.example.buland.cloud.aws.s3.imageuploaddownload.entities.Profile;
 import com.example.buland.cloud.aws.s3.imageuploaddownload.entities.ProfileDocument;
 import com.example.buland.cloud.aws.s3.imageuploaddownload.repository.ProfileRepository;
 
+import com.example.buland.cloud.aws.s3.imageuploaddownload.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Slf4j
@@ -70,8 +69,13 @@ public class ProfileService {
             throw new RuntimeException("Insufficient storage space.");
         }
 
+        Map<String, String> metaData = new HashMap<>();
+        metaData.put(Constants.DOCUMENT_CONTENT_TYPE_META_DATA_KEY, mimeType);
+        metaData.put(Constants.DOCUMENT_CONTENT_LENGTH_META_DATA_KEY, String.valueOf(documentSize));
+        metaData.put(Constants.DOCUMENT_CATEGORY_META_DATA_KEY, documentCategory);
+
         //Save Object in S3
-        Boolean operationResult = s3Service.putObject(s3ObjectKey, inputStream);
+        Boolean operationResult = s3Service.putObject(s3ObjectKey, metaData, inputStream);
 
         if ( !operationResult ) {
             throw new Exception("Cannot save object into S3 for fileName="+fileName);

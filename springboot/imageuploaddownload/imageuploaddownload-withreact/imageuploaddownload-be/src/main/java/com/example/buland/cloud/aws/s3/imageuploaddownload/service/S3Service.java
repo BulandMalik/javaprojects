@@ -1,6 +1,7 @@
 package com.example.buland.cloud.aws.s3.imageuploaddownload.service;
 
 import com.example.buland.cloud.aws.s3.imageuploaddownload.configs.AwsConfig;
+import com.example.buland.cloud.aws.s3.imageuploaddownload.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import software.amazon.awssdk.awscore.exception.AwsServiceException;
@@ -18,6 +19,7 @@ import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequ
 import java.io.IOException;
 import java.io.InputStream;
 import java.time.Duration;
+import java.util.Map;
 
 @Service
 @Slf4j
@@ -45,12 +47,20 @@ public class S3Service {
      * @throws IOException
      * @throws IOException
      */
-    public Boolean putObject(String key, InputStream inputStream)
+    public Boolean putObject(String key, Map<String, String> metaData, InputStream inputStream)
             throws S3Exception, AwsServiceException, SdkClientException, IOException, IOException {
+
+        log.info("inside  putObject with params key={}, metaData.{}={} , metaData.{}={} and metaData.{}={}",key,
+                Constants.DOCUMENT_CONTENT_TYPE_META_DATA_KEY, metaData.get(Constants.DOCUMENT_CONTENT_TYPE_META_DATA_KEY),
+                Constants.DOCUMENT_CONTENT_LENGTH_META_DATA_KEY, metaData.get(Constants.DOCUMENT_CONTENT_LENGTH_META_DATA_KEY),
+                Constants.DOCUMENT_CATEGORY_META_DATA_KEY, metaData.get(Constants.DOCUMENT_CATEGORY_META_DATA_KEY));
 
         PutObjectRequest putObjectRequest = PutObjectRequest.builder()
                 .bucket(awsConfig.awsBucketName)
                 .key(key)
+                .contentType(metaData.get(Constants.DOCUMENT_CONTENT_TYPE_META_DATA_KEY))
+                .contentLength(Long.parseLong(metaData.get(Constants.DOCUMENT_CONTENT_LENGTH_META_DATA_KEY)))
+                .metadata(metaData)
                 .build();
 
         PutObjectResponse response = s3Client.putObject(
