@@ -1,0 +1,2 @@
+1. File Size Limits (Use Spring.servlet.multipart.max-file.size property to set the limit)
+2. The bucket does not allow ACLs (if bucket does not allow ACL)

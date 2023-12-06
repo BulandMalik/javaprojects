@@ -1,0 +1,96 @@
+package com.example.buland.cloud.aws.s3.imageuploaddownload.service;
+
+import com.example.buland.cloud.aws.s3.imageuploaddownload.configs.AwsConfig;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+import software.amazon.awssdk.awscore.exception.AwsServiceException;
+import software.amazon.awssdk.core.exception.SdkClientException;
+import software.amazon.awssdk.core.sync.RequestBody;
+import software.amazon.awssdk.services.s3.S3Client;
+import software.amazon.awssdk.services.s3.model.GetObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectRequest;
+import software.amazon.awssdk.services.s3.model.PutObjectResponse;
+import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.presigner.S3Presigner;
+import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
+import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.time.Duration;
+
+@Service
+@Slf4j
+public class S3Service {
+
+    private final S3Client s3Client;
+    private final AwsConfig awsConfig;
+    private final S3Presigner s3Presigner;
+
+    public S3Service(S3Client s3Client, AwsConfig awsConfig, S3Presigner s3Presigner) {
+        this.s3Client = s3Client;
+        this.awsConfig = awsConfig;
+        this.s3Presigner = s3Presigner;
+    }
+
+    /**
+     * to put an object into S3 bucket
+     *
+     * @param key
+     * @param inputStream
+     * @return
+     * @throws S3Exception
+     * @throws AwsServiceException
+     * @throws SdkClientException
+     * @throws IOException
+     * @throws IOException
+     */
+    public Boolean putObject(String key, InputStream inputStream)
+            throws S3Exception, AwsServiceException, SdkClientException, IOException, IOException {
+
+        PutObjectRequest putObjectRequest = PutObjectRequest.builder()
+                .bucket(awsConfig.awsBucketName)
+                .key(key)
+                .build();
+
+        PutObjectResponse response = s3Client.putObject(
+                putObjectRequest,
+                RequestBody.fromInputStream(inputStream, inputStream.available())
+        );
+
+        log.info("Successfully upload the document with response={}",response);
+        return Boolean.TRUE;
+    }
+
+
+    /**
+     * gets the PreSigned Get Url where the Url is only valid for 5 mins
+     *
+     * @param objectKey
+     *
+     * @return
+     */
+    public String getPreSignedGetUrl(String objectKey) {
+        log.info("inside getPreSignedGetUrl with objectKey={}",objectKey);
+
+        try {
+            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(awsConfig.awsBucketName)
+                    .key(objectKey)
+                    .build();
+
+            GetObjectPresignRequest getObjectPresignRequest = GetObjectPresignRequest.builder()
+                    .signatureDuration(Duration.ofMinutes(5)) //pre signed URL will be valid for 5 mins only and after 5 mins we get 'Request has expired' error from AWS
+                    .getObjectRequest(getObjectRequest)
+                    .build();
+
+            PresignedGetObjectRequest presignedGetObjectRequest = s3Presigner.presignGetObject(getObjectPresignRequest);
+            log.info("Presigned URL: {}", presignedGetObjectRequest.url());
+            return presignedGetObjectRequest.url().toString();
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
+            //throw ex;
+        }
+        return null;
+    }
+}
