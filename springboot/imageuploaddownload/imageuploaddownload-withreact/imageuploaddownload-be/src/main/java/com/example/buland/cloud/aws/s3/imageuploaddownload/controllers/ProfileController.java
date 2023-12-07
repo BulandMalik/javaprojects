@@ -5,6 +5,7 @@ import com.example.buland.cloud.aws.s3.imageuploaddownload.dtos.ProfileRequest;
 import com.example.buland.cloud.aws.s3.imageuploaddownload.entities.Profile;
 import com.example.buland.cloud.aws.s3.imageuploaddownload.service.ProfileService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import java.util.UUID;
 @Controller
 @Slf4j
 @RequestMapping("/profiles")
+@CrossOrigin(origins = "http://localhost:3000")
 public class ProfileController {
 
     private final ProfileService profileService;
@@ -93,7 +95,10 @@ public class ProfileController {
         log.info("inside Profile with incoming profileId={} and objectKey={}", profileId, objectKey);
 
         String preSignedUrl = profileService.getPreSignedGetUrl(new StringBuilder(profileId).append("/").append(objectKey).toString());
-        return new ResponseEntity<>(preSignedUrl, HttpStatus.FOUND); //Redirect
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Location", preSignedUrl);
+        return new ResponseEntity<>(headers, HttpStatus.FOUND); //Redirect
+        //return new ResponseEntity<>(preSignedUrl, HttpStatus.FOUND); //Redirect
     }
 
 

@@ -84,7 +84,8 @@ public class ProfileService {
                 .profileDocumentSize(documentSize)
                 .profileDocumentMimeType(mimeType)
                 .profileDocumentCategory(documentCategory)
-                .profileDocumentAccessURI(s3ObjectKey)
+                //.profileDocumentAccessURI(s3ObjectKey) //s3ObjectKey also contain profile id but that will be taken care by the business logic
+                .profileDocumentAccessURI(fileName)
                 .build();
         operationResult = profileRepository.updateProfileDocuments(profileId, Optional.of(profileDocument));
         log.info("returning from addProfileMediaAttachment with profileId={}, fileName={}, operationResult={}",profileId, fileName, operationResult);
