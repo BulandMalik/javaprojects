@@ -1,4 +1,5 @@
 import React from 'react';
+import deleteIcon from '../delete.png';
 
 const ProfileList = ({ profiles, onDocumentClick }) => {
   return (<>
@@ -33,6 +34,7 @@ const ProfileList = ({ profiles, onDocumentClick }) => {
                                 >
                                     {document.profileDocumentAccessURI}
                                 </a>
+                                <span>&nbsp;&nbsp;</span>
                                 <a
                                     href="#"
                                     onClick={(e) => {
@@ -40,7 +42,7 @@ const ProfileList = ({ profiles, onDocumentClick }) => {
                                         onDocumentClick(profile.profileId, document.profileDocumentAccessURI, true);
                                     }}
                                 >
-                                    <span>&nbsp;&nbsp;Delete</span>
+                                    <span><img src={deleteIcon} alt="Delete"/></span>
                                 </a>                                
                             </li>
                         </div>
