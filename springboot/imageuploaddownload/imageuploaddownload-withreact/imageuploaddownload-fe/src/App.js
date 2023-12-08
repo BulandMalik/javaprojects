@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import ProfileForm from './components/ProfileForm';
 import DocumentUploadForm from './components/DocumentUploadForm';
 import ProfileList from './components/ProfileList';
-import { getProfiles, downloadDocument } from './components/api';
+import { getProfiles, downloadDocument, deleteDocument } from './components/api';
 
 function App() {
   const [profiles, setProfiles] = useState([]);
@@ -20,13 +20,24 @@ function App() {
     }
   };
 
-  const handleDocumentClick = async (documentId,objectKey) => {
-    try {
-      console.log("documentId to download:"+documentId+" with objectKey="+objectKey);
-      const response = await downloadDocument(documentId, objectKey);
-      console.log(response);
-    } catch (error) {
-      console.error('Error downloading document:', error);
+  const handleDocumentClick = async (documentId,objectKey,isDeleteOperation) => {
+    console.log("documentId to download:"+documentId+", objectKey="+objectKey+" with isDeleteOperation="+isDeleteOperation);
+    if (!isDeleteOperation) {
+      try {
+        const response = await downloadDocument(documentId, objectKey);
+        console.log(response);
+      } catch (error) {
+        console.error('Error downloading document:', error);
+      }
+    }
+    else { //delete operation
+      try {
+        const response = await deleteDocument(documentId, objectKey);
+        console.log(response);
+        fetchProfiles();
+      } catch (error) {
+        console.error('Error downloading document:', error);
+      }
     }
   };
 

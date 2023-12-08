@@ -28,11 +28,20 @@ const ProfileList = ({ profiles, onDocumentClick }) => {
                                     href="#"
                                     onClick={(e) => {
                                         e.preventDefault();
-                                        onDocumentClick(profile.profileId, document.profileDocumentAccessURI);
+                                        onDocumentClick(profile.profileId, document.profileDocumentAccessURI, false);
                                     }}
                                 >
                                     {document.profileDocumentAccessURI}
                                 </a>
+                                <a
+                                    href="#"
+                                    onClick={(e) => {
+                                        e.preventDefault();
+                                        onDocumentClick(profile.profileId, document.profileDocumentAccessURI, true);
+                                    }}
+                                >
+                                    <span>&nbsp;&nbsp;Delete</span>
+                                </a>                                
                             </li>
                         </div>
                     </>

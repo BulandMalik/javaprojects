@@ -9,6 +9,7 @@ import com.example.buland.cloud.aws.s3.imageuploaddownload.utils.Constants;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
 
@@ -61,6 +62,13 @@ public class ProfileService {
 
         log.info("inside addProfileMediaAttachment with profileId={}, fileName={}, documentCategory={}, mimeType={}",profileId, fileName, documentCategory, mimeType);
         String s3ObjectKey = new StringBuilder(profileId).append("/").append(fileName).toString();
+        /*String s3ObjectKey = new StringBuilder("Tenant_Id") //t_tid
+                .append("/")
+                .append("Patient_Id") //pat_id or pr_id
+                .append("/")
+                .append("Document_Type") //dt_id
+                .append("/")
+                .append(fileName).toString();*/
 
         Profile profile = profileRepository.getProfile(profileId);
 
@@ -112,5 +120,13 @@ public class ProfileService {
     public String getPreSignedGetUrl(String objectKey) {
         log.info("inside getPreSignedGetUrl with objectKey={}",objectKey);
         return s3Service.getPreSignedGetUrl(objectKey);
+    }
+
+    public Boolean removeDocument(String profileId, String objectKey, String objectUri) throws IOException {
+        log.info("inside removeDocument with objectKey={}",objectKey);
+        if ( s3Service.removeObject(objectKey) )
+            return profileRepository.removeDocument(profileId, objectUri);
+
+        return Boolean.FALSE;
     }
 }

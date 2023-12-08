@@ -13,6 +13,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -92,7 +93,7 @@ public class ProfileController {
     @GetMapping("{profileId}/download/{objectKey}")
     public ResponseEntity<String> downloadProfileMediaFile(@PathVariable("profileId") String profileId, @PathVariable("objectKey") String objectKey) {
 
-        log.info("inside Profile with incoming profileId={} and objectKey={}", profileId, objectKey);
+        log.info("inside downloadProfileMediaFile with incoming profileId={} and objectKey={}", profileId, objectKey);
 
         String preSignedUrl = profileService.getPreSignedGetUrl(new StringBuilder(profileId).append("/").append(objectKey).toString());
         HttpHeaders headers = new HttpHeaders();
@@ -101,5 +102,22 @@ public class ProfileController {
         //return new ResponseEntity<>(preSignedUrl, HttpStatus.FOUND); //Redirect
     }
 
+    @DeleteMapping("{profileId}/{objectKey}")
+    public ResponseEntity<String> deleteDocument(@PathVariable("profileId") String profileId, @PathVariable("objectKey") String objectKey) {
+
+        log.info("inside deleteDocument with incoming profileId={} and objectKey={}", profileId, objectKey);
+
+        String key = new StringBuilder(profileId).append("/").append(objectKey).toString();
+        String returnMessage = "Something went wrong, could not able to delete the document with key="+key;
+        try {
+            if ( profileService.removeDocument(profileId, key, objectKey) )
+                returnMessage = "Document with key="+key+" has been deleted!";
+        } catch (IOException e) {
+            e.printStackTrace();
+            returnMessage += "\n" + e.getLocalizedMessage();
+        }
+
+        return new ResponseEntity<>(returnMessage, HttpStatus.OK);
+    }
 
 }

@@ -17,4 +17,5 @@ public interface ProfileRepository {
     public Boolean saveProfile(Optional<Profile> profile);
     public Boolean updateProfileDocuments(String profileId, Optional<ProfileDocument> profileDocument);
 
+    public Boolean removeDocument(String profileId, String objectUri);
 }

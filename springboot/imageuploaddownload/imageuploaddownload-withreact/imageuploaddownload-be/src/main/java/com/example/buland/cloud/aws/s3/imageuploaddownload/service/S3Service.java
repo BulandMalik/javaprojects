@@ -8,10 +8,7 @@ import software.amazon.awssdk.awscore.exception.AwsServiceException;
 import software.amazon.awssdk.core.exception.SdkClientException;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
-import software.amazon.awssdk.services.s3.model.GetObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectRequest;
-import software.amazon.awssdk.services.s3.model.PutObjectResponse;
-import software.amazon.awssdk.services.s3.model.S3Exception;
+import software.amazon.awssdk.services.s3.model.*;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
 import software.amazon.awssdk.services.s3.presigner.model.GetObjectPresignRequest;
 import software.amazon.awssdk.services.s3.presigner.model.PresignedGetObjectRequest;
@@ -102,5 +99,33 @@ public class S3Service {
             //throw ex;
         }
         return null;
+    }
+
+
+    /**
+     * remove an object from S3
+     *
+     * @param objectKey
+     * @return
+     * @throws S3Exception
+     * @throws AwsServiceException
+     * @throws SdkClientException
+     * @throws IOException
+     * @throws IOException
+     */
+    public Boolean removeObject(String objectKey)
+            throws S3Exception, AwsServiceException, SdkClientException, IOException, IOException {
+
+        log.info("inside  removeObject with params objectKey={}",objectKey);
+
+        DeleteObjectRequest deleteObjectRequest = DeleteObjectRequest.builder()
+                .bucket(awsConfig.awsBucketName)
+                .key(objectKey)
+                .build();
+
+        // Delete the object
+        DeleteObjectResponse deleteObjectResponse = s3Client.deleteObject(deleteObjectRequest);
+        log.info("Successfully deleted the document with objectKey={}, Response we got is response={}",objectKey, deleteObjectResponse);
+        return Boolean.TRUE;
     }
 }

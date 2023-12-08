@@ -59,6 +59,7 @@ public class InMemoryProfileRepositoryImpl implements ProfileRepository {
     @Override
     public Boolean updateProfileDocuments(String profileId, Optional<ProfileDocument> profileDocument) {
         log.info("inside updateProfileMediaAttachments to save profileId={} and profileDocument={}", profileId, profileDocument.get());
+
         if ( !profileDocument.isPresent() ){
             log.error("updateProfileMediaAttachments operation failed as incoming profileDocument object is empty/not valid");
             return Boolean.FALSE; //failed operation
@@ -69,6 +70,20 @@ public class InMemoryProfileRepositoryImpl implements ProfileRepository {
         profile.getProfileDocuments().add(profileDocument.get());
         log.info("profile Object after Update={}", profile);
         profileStore.put(profileId, profile);
+
+        return Boolean.TRUE; //successful operation
+    }
+
+    public Boolean removeDocument(String profileId, String objectUri) {
+
+        log.info("inside saveProfile to save profileId={} and objectKey={}", profileId, objectUri);
+
+        Profile profile = profileStore.get(profileId);
+        log.info("profile Object before Delete={}", profile);
+        List<ProfileDocument> profileDocuments = profile.getProfileDocuments().stream().filter( profileDocument -> !profileDocument.getProfileDocumentAccessURI().equals(objectUri)).collect(Collectors.toList());
+        profile.setProfileDocuments( profileDocuments );
+        log.info("profile Object after Update={}", profile);
+        log.info("after deletion, profileDocuments={}", profileDocuments);
 
         return Boolean.TRUE; //successful operation
     }

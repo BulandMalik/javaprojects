@@ -83,3 +83,16 @@ export const downloadDocument = async (profileId, objectKey) => {
     window.open(redirectUrl, '_blank');
   }
 };
+
+
+// Function to delete a file for a given profile and object key
+export const deleteDocument = async (profileId, objectKey) => {
+    const response = await fetch(`${API_BASE_URL}/profiles/${profileId}/${objectKey}`, {
+        method: 'DELETE'
+      });
+  
+    console.log("delete response status:"+response.status);
+  if (!response.ok) {
+      throw new Error('Error downloading document');
+    }
+  };
