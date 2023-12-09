@@ -15,6 +15,7 @@
 ```
 4. AWS Account (Free or Business)
    1. https://aws.amazon.com/
+   2. https://repost.aws/knowledge-center/create-and-activate-aws-account
 5. 
 
 ## Setup AWS Account
