@@ -6,6 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import software.amazon.awssdk.auth.credentials.ProfileCredentialsProvider;
+import software.amazon.awssdk.auth.credentials.DefaultCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.presigner.S3Presigner;
@@ -28,12 +29,14 @@ public class AwsConfig {
     @Value("${aws.buckets.profile-media-bucket-name}")
     public String awsBucketName;
 
-    ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+    //ProfileCredentialsProvider credentialsProvider = ProfileCredentialsProvider.create();
+    DefaultCredentialsProvider credentialsProvider = DefaultCredentialsProvider.create();
 
-   @Bean
+    @Bean
     public S3Client configureS3Client() { //AwsCredentialsProvider provider
-       Region region = Region.of(awsRegion);
-       //S3Client s3Client = S3Client.builder(); //thios should work as work as it looks default profile credentails
+       try {
+           Region region = Region.of(awsRegion);
+           //S3Client s3Client = S3Client.builder(); //thios should work as work as it looks default profile credentails
        /*
        S3Client s3Client = S3Client.builder()
                .region(region)
@@ -48,13 +51,17 @@ public class AwsConfig {
                .build();
         */
 
-       S3Client s3Client = S3Client.builder()
-               .region(region)
-               .credentialsProvider(credentialsProvider)
-               //.endpointOverride(URI.create("https://s3.us-west-2.amazonaws.com"))
-               //.forcePathStyle(true) //Call the forcePathStyle method with true in your client builder to force the client to use path-style addressing for buckets.
-               .build();
-       return s3Client;
+           S3Client s3Client = S3Client.builder()
+                   .region(region)
+                   .credentialsProvider(credentialsProvider)
+                   //.endpointOverride(URI.create("https://s3.us-west-2.amazonaws.com"))
+                   //.forcePathStyle(true) //Call the forcePathStyle method with true in your client builder to force the client to use path-style addressing for buckets.
+                   .build();
+           return s3Client;
+       }
+       catch(Exception e) {
+           throw new RuntimeException(e);
+       }
    }
 
     /**
@@ -72,12 +79,17 @@ public class AwsConfig {
      */
     @Bean
     public S3Presigner s3Presigner() { //AwsCredentialsProvider provider
-        Region region = Region.of(awsRegion);
-        return S3Presigner.builder()
-                .region(region)
-                .credentialsProvider(credentialsProvider)
-                //.credentialsProvider(provider)
-                .build();
+        try {
+            Region region = Region.of(awsRegion);
+            return S3Presigner.builder()
+                    .region(region)
+                    .credentialsProvider(credentialsProvider)
+                    //.credentialsProvider(provider)
+                    .build();
+        }
+        catch(Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @PostConstruct

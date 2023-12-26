@@ -13,10 +13,12 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>imageuploaddownload-be</name>
 	<description>Image Upload/Download Spring Boot</description>
+
 	<properties>
 		<java.version>11</java.version>
 		<commons-codec-version>1.10.L001</commons-codec-version>
 		<jets3t-version>0.9.4.0006L</jets3t-version>
+		<docker.image.prefix>learntechverse</docker.image.prefix>
 	</properties>
 
 	<dependencyManagement>
@@ -39,6 +41,10 @@
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -82,6 +88,30 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+<!--			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>dockerfile-maven-plugin</artifactId>
+				<version>1.4.12</version>
+				<executions>
+					<execution>
+						<id>default</id>
+						<goals>
+							<goal>build</goal>
+							<goal>push</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<repository>${docker.image.prefix}/springbootecs</repository>
+					<tag>${project.version}</tag>
+					<buildArgs>
+						<JAR_FILE>target/${project.build.finalName}.jar</JAR_FILE>
+					</buildArgs>
+				</configuration>
+			</plugin>-->
+
 		</plugins>
 	</build>
 

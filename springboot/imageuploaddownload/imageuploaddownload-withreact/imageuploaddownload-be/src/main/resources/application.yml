@@ -22,4 +22,12 @@ spring:
 #      allowed-headers: "Requestor-Type"
 #      exposed-headers: "X-Get-Header"
 
+management:
+  endpoints:
+    web:
+      exposure:
+        #include: health
+        include: "*"
+
+        #exclude: loggers
 
