@@ -1,0 +1,52 @@
+openapi: "3.0.3"
+info:
+  title: "springboot_mail_functionality API"
+  description: "springboot_mail_functionality API"
+  version: "1.0.0"
+servers:
+  - url: "http://localhost:8080"
+paths:
+  /email/helloText:
+    post:
+      summary: "POST email/helloText"
+      operationId: "sendHelloTextEmail"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /email/helloHtml1:
+    post:
+      summary: "POST email/helloHtml1"
+      operationId: "sendHelloHtmlEmail1"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /email/helloHtml2:
+    post:
+      summary: "POST email/helloHtml2"
+      operationId: "sendHelloHtmlEmail2"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /email/helloHtmlWithAttachment:
+    post:
+      summary: "POST email/helloHtmlWithAttachment"
+      operationId: "sendHelloHtmlEmailWithAttachment"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
