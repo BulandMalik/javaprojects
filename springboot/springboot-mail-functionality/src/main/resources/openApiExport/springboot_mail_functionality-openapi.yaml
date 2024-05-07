@@ -50,3 +50,36 @@ paths:
             '*/*':
               schema:
                 type: "string"
+  /email/helloHtmlUsingWelcomeTemplate:
+    post:
+      summary: "POST email/helloHtmlUsingWelcomeTemplate"
+      operationId: "sendHelloHtmlEmailUsingWelcomeTemplate"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /email/salesReport:
+    post:
+      summary: "POST email/salesReport"
+      operationId: "sendSalesReportEmail"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
+  /email/hl7Errors:
+    post:
+      summary: "POST email/hl7Errors"
+      operationId: "hl7Errors"
+      responses:
+        "200":
+          description: "OK"
+          content:
+            '*/*':
+              schema:
+                type: "string"
