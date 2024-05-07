@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${pageTitle}">Template Sales Report Title</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+
+<body>
+<p>Hello <span th:text="${name}"></span>,</p>
+
+<p>Here is the Sales Report for <span th:text="${#temporals.format(reportDate, 'yyyy-MM-dd')}">2023-09-20</span>:</p>
+
+<table style="border:solid 3px; border-color:#e4701e; border-radius:10px;">
+    <caption style="font-size:14px; font-weight:bold;">SALES BY COUNTRY</caption>
+    <thead>
+    <tr>
+        <th>Country</th>
+        <th>Sales amount</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="sales, status : ${salesByCountry}" th:style="${status.odd} ? 'background: #f0f0f2;' : 'background: #ffffff;'">
+        <td th:text="${sales.key}" />
+        <td style="text-align:center;" th:text="${#numbers.formatCurrency(sales.value)}" />
+    </tr>
+    <tr style="background:#dddddd;">
+        <td colspan="2" style="text-align:right; font-weight:bold;">Total: <span th:text="${#numbers.formatCurrency(totalSales)}"></span></td>
+    </tr>
+    </tbody>
+</table>
+
+<p>
+    <img th:src="|cid:${imageCompanyLogo}|" />
+</p>
+<!-- ... -->
+</body>
+
+</html>

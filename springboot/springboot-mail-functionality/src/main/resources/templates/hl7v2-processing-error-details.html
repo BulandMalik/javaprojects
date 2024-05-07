@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Error Details</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img th:src="|cid:${imageCompanyLogo}|" alt="Company Logo" style="max-width: 150px;"/>
+    <h2>HL7V2 Processing Error Details</h2>
+    <p>Dear User,</p>
+    <p>We wanted to inform you about an issue that occurred while processing an HL7 message on <span th:text="${#temporals.format(reportDate, 'yyyy-MM-dd')}">2023-09-20</span>.</p>
+    <p>Please find the error details below:</p>
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Unparsed Message ID</th>
+            <th>Error Number</th>
+            <th>Error Details</th>
+            <th>Transaction ID</th>
+            <th>Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="error : ${errors}">
+            <td th:text="${error.id}">ID</td>
+            <td th:text="${error.unparssedMessageId}">Unparsed Message ID</td>
+            <td th:text="${error.errorNumber}">Error Number</td>
+            <td th:text="${error.errorDetails}">Error Details</td>
+            <td th:text="${error.tid}">Transaction ID</td>
+            <td>
+                <a th:href="@{${error.link}}">Link</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <p>For further assistance, please contact support.</p>
+    <p>Thank you for your attention.</p>
+    <p>Best regards,<br>Enterprise Central Demographics Team</p>
+</div>
+</body>
+</html>

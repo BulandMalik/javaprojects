@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Text;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -23,13 +24,21 @@ public class EmailController {
 
     EmailService htmlEmailService;
 
+    EmailService salesReportEmailService;
+
+    EmailService hl7ErrorsEmailService;
+
     private MailConfigs mailConfigs;
 
     public EmailController( @Qualifier("textEmailService") EmailService textEmailService,
                             @Qualifier("htmlEmailService") EmailService htmlEmailService,
+                            @Qualifier("salesReportEmailService") EmailService salesReportEmailService,
+                            @Qualifier("hl7ProcessingErrorEmailService") EmailService hl7ErrorsEmailService,
                             MailConfigs mailConfigs) {
         this.textEmailService = textEmailService;
         this.htmlEmailService = htmlEmailService;
+        this.salesReportEmailService = salesReportEmailService;
+        this.hl7ErrorsEmailService = hl7ErrorsEmailService;
         this.mailConfigs = mailConfigs;
     }
 
@@ -38,8 +47,8 @@ public class EmailController {
     @RequestMapping(value="/helloText", method= RequestMethod.POST)
     public String sendHelloTextEmail()
     {
-        String [] recipients = {"bulandaltaf@gmail.com"};
-        String firstName = "Buland", lastName = "Malik";
+        String [] recipients = {"dummy@gmail.com"};
+        String firstName = "Paul", lastName = "Adams";
         String subject = String.format("Hello, %s!", firstName);
         String template = String.format("Hello, %s!\n\n"
                 + "This is a message test message for %s, %s. "
@@ -54,8 +63,8 @@ public class EmailController {
     @RequestMapping(value="/helloHtml1", method= RequestMethod.POST)
     public String sendHelloHtmlEmail1()
     {
-        String [] recipients = {"bulandaltaf@gmail.com"};
-        String firstName = "Buland", lastName = "Malik";
+        String [] recipients = {"dummy@gmail.com"};
+        String firstName = "Paul", lastName = "Adams";
         String subject = String.format("Hello, %s from SpringBoot HTML Email Template!", firstName);
         String htmlTemplate = "<h1>Hello ${name}<h1>." +
                 "<h1>Using Spring Without MimeMessageHelper<h1>." +
@@ -73,8 +82,8 @@ public class EmailController {
     @RequestMapping(value="/helloHtml2", method= RequestMethod.POST)
     public String sendHelloHtmlEmail2()
     {
-        String [] recipients = {"bulandaltaf@gmail.com"};
-        String firstName = "Buland", lastName = "Malik";
+        String [] recipients = {"dummy@gmail.com"};
+        String firstName = "Paul", lastName = "Adams";
         String subject = String.format("Hello, %s from SpringBoot HTML Email Template!", firstName);
         String htmlTemplate = "<h1>Hello ${name}<h1>." +
                 "<h1>Using Spring With MimeMessageHelper<h1>." +
@@ -92,8 +101,8 @@ public class EmailController {
     @RequestMapping(value="/helloHtmlWithAttachment", method= RequestMethod.POST)
     public String sendHelloHtmlEmailWithAttachment()
     {
-        String [] recipients = {"bulandaltaf@gmail.com"};
-        String firstName = "Buland", lastName = "Malik";
+        String [] recipients = {"dummy@gmail.com"};
+        String firstName = "Paul", lastName = "Adams";
         String subject = String.format("Hello, %s from SpringBoot HTML Email Template!", firstName);
         String htmlTemplate = "<h1>Hello ${name}<h1>." +
                 "<h1>Spring Email With Attachment<h1>." +
@@ -104,5 +113,38 @@ public class EmailController {
 
         htmlEmailService.sendEmail(mailConfigs.getUserName(), recipients, subject, htmlTemplate);
         return "HTML Attachment Looks Good!!!";
+    }
+
+    @RequestMapping(value="/helloHtmlUsingWelcomeTemplate", method= RequestMethod.POST)
+    public String sendHelloHtmlEmailUsingWelcomeTemplate()
+    {
+        String [] recipients = {"dummy@gmail.com"};
+        String subject = "Hello from SpringBoot HTML Welcome Email Template!";
+
+
+        htmlEmailService.sendEmail(mailConfigs.getUserName(), recipients, subject, null);
+        return "HTML With template Looks Good!!!";
+    }
+
+    @RequestMapping(value="/salesReport", method= RequestMethod.POST)
+    public String sendSalesreportEmail()
+    {
+        String [] recipients = {"dummy@gmail.com"};
+        String subject = "Sales Report - "+new Date();
+
+
+        salesReportEmailService.sendEmail(mailConfigs.getUserName(), recipients, subject, "Joe F Donald");
+        return "Sales Report Looks Good!!!";
+    }
+
+    @RequestMapping(value="/hl7Errors", method= RequestMethod.POST)
+    public String sendHL7ErrorsEmail()
+    {
+        String [] recipients = {"dummy@gmail.com"};
+        String subject = "HL7 Errors Report - "+new Date();
+
+
+        hl7ErrorsEmailService.sendEmail(mailConfigs.getUserName(), recipients, subject, "Joe F Donald");
+        return "HL7 Errors Report Went Out!!!";
     }
 }
