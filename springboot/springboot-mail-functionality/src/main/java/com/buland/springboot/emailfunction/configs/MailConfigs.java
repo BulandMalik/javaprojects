@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+
 @Configuration
 @ConfigurationProperties(prefix = "spring.mail")
 @Slf4j
@@ -25,6 +27,10 @@ public class MailConfigs {
 
     private String port;
 
+    private String fromAddress;
+
+    private List<String> recipients;
+
     @PostConstruct
     public void printData(){
         log.info("<<<<<<<<<< Spring Mail SMTP Properties >>>>>>>>>>");
@@ -32,5 +38,7 @@ public class MailConfigs {
         log.info("From Email Password: {}",password);
         log.info("SMTP Host: {}",host);
         log.info("SMTP Port: {}",port);
+        log.info("From Email Address: {}",fromAddress);
+        this.recipients.forEach(recipient -> log.info("Recipient: {}",recipient));
     }
 }

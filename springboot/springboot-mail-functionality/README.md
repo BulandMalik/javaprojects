@@ -285,6 +285,9 @@ Resource resourceFile;
 1. Look for running app on a particular port `netstat -aof | findstr :8080`
 2. kill the task using `tskill 14508`
 
+## Running Application
+-Dspring.profiles.active=dev -DE_USERNAME= -DE_PASSWORD=.......
+
 ### Additional Info
 1. https://medium.com/thymeleaf-basics-concepts/thymeleaf-1ef952db0740
 2. https://www.baeldung.com/spring-email-templates

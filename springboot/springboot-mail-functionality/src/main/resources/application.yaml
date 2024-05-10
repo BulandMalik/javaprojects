@@ -6,8 +6,8 @@ spring:
     default-encoding: UTF-8 #Default MimeMessage encoding
     host: smtp.gmail.com #specifies the SMTP server host. In this case, we’re using Gmail’s SMTP server. Change this value if you’re using a different SMTP server
     port: 587 #specifies the port number used to establish a connection with the SMTP server. For Gmail's SMTP server, the recommended port is 587.
-    username: ${E_USERNAME} #the email address of the account you want to use as the sender of the emails
-    password: ${E_PASSWORD} #property requires the password or app-specific password associated with the email account specified in the spring.mail.username property. For security reasons, it's crucial not to use the account's actual password. Instead, generate an app-specific password from the email service provider and use it here
+    #username: ${E_USERNAME} #the email address of the account you want to use as the sender of the emails
+    #password: ${E_PASSWORD} #property requires the password or app-specific password associated with the email account specified in the spring.mail.username property. For security reasons, it's crucial not to use the account's actual password. Instead, generate an app-specific password from the email service provider and use it here
     protocol: smtp
     properties: #Additional JavaMail Session properties.
       mail:
@@ -20,3 +20,7 @@ spring:
           timeout: 10000 #Socket read timeout value in milliseconds. This timeout is implemented by java.net.Socket. Default is infinite timeout.
           writetimeout: 10000 #Socket write timeout value in milliseconds. This timeout is implemented by using a java.util.concurrent.ScheduledExecutorService per connection that schedules a thread to close the socket if the timeout expires. Thus, the overhead of using this timeout is one thread per connection. Default is infinite timeout.
     test-connection: true #Whether to test that the mail server is available on startup.
+    from-address: bulandmalik.learnings@gmail.com
+    recipients:
+      - bulandmalik.learnings@gmail.com
+      - bulandaltaf@gmail.com
