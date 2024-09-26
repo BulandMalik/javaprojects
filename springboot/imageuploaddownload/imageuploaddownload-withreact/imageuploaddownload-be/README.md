@@ -183,6 +183,8 @@ For instance, if we set the `management.endpoints.web.base-path` to `/mgmt`, we 
     - `docker push [AWS-ACCOUNT-#].dkr.ecr.us-east-1.amazonaws.com/learntechverse/springbootwithecs:latest`
 
 ### Create ECS Task Definition
+A task is the unit of work within Amazon ECS and is made of a group of one or more containers that run together. These containers share a lifecycle by getting started and stopped together. A task is made from a task definition template.
+
 A versioned template of a task which you would like to run. Here you will specify the Docker image to be used, memory, CPU, etc. for your container.
 
 Now that the Docker image is available in ECR, next thing to do is to create a Task Definition by creating the `Create new Task Definition` button in the Task Definitions section (left menu).

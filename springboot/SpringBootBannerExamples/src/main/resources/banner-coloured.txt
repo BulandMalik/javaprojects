@@ -1,0 +1,11 @@
+${AnsiStyle.BOLD}
+   ${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}  ____             _             _   _               ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+ ${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}   / ___| _ __  _ __(_)_ __   __ _| | | | _____      __  ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}    \___ \| '_ \| '__| | '_ \ / _` | |_| |/ _ \ \/ \ / /   ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}     ___) | |_) | |  | | | | | (_| |  _  | (_) \ V  V /    ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+ ${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}   |____/| .__/|_|  |_|_| |_|\__, |_| |_|\___/ \_/\_/    ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+   ${AnsiBackground.GREEN}${AnsiColor.BRIGHT_WHITE}       |_|                 |___/                     ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}${AnsiStyle.NORMAL}
+
+Artifact Name : ${AnsiBackground.BLUE}${AnsiColor.BRIGHT_WHITE} ${AnsiStyle.BOLD}${application.title}${AnsiStyle.NORMAL} ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+Artifact Version: Artifact Version: ${AnsiBackground.BLUE}${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}${application.formatted-version}${AnsiStyle.NORMAL} ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}
+Spring Boot Version: ${AnsiBackground.BLUE}${AnsiColor.BRIGHT_WHITE}${AnsiStyle.BOLD}${spring-boot.formatted-version}${AnsiStyle.NORMAL} ${AnsiColor.DEFAULT}${AnsiBackground.DEFAULT}

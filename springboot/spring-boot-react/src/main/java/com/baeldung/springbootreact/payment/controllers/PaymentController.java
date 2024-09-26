@@ -60,6 +60,7 @@ public class PaymentController {
         }
 
         String nonce = paymentRequest.getPaymentNonce();
+
         //String result = paymentService.processPayment(amount, tenant.getTenantId(), nonce);
         PaymentResponse paymentRes = paymentService.processPayment(amount, tenant.getTenantId(), nonce);
 

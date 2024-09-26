@@ -1,0 +1,8 @@
+${AnsiStyle.BOLD}
+${AnsiBackground.GREEN}
+  _                       _
+ /   _  ._ _|_ ._ _. |   | \  _  ._ _   _   _  ._ _. ._  |_  o  _  _    /\  ._  ._  | o  _  _. _|_ o  _  ._
+ \_ (/_ | | |_ | (_| |   |_/ (/_ | | | (_) (_| | (_| |_) | | | (_ _>   /--\ |_) |_) | | (_ (_|  |_ | (_) | |
+                                            _|       |                      |   |
+${application.title} ${application.version}
+Powered by Spring Boot ${spring-boot.version}
