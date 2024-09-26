@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: SpringBootSQSSNSSWSDemo
+
+logging:
+  level:
+    org.springframework.web: TRACE
+
+sqs:
+  resume_parser_queue_url:
+
+
