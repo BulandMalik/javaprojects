@@ -1,0 +1,24 @@
+spring:
+  #mail properries
+  mail:
+    default-encoding: UTF-8 #Default MimeMessage encoding
+    host: outbound.mail.nc.gov #specifies the SMTP server host. In this case, we’re using Gmail’s SMTP server. Change this value if you’re using a different SMTP server
+    port: 25 #specifies the port number used to establish a connection with the SMTP server. For Gmail's SMTP server, the recommended port is 587.
+    #username:
+    #password:
+    protocol: smtp
+    properties: #Additional JavaMail Session properties.
+      mail:
+        debug: true
+        smtp:
+          auth: false #this property is used to enable SMTP authentication. When set to true, it indicates that the SMTP server requires authentication before sending emails. This is usually the case for most SMTP servers.
+          starttls:
+            enable: false #to enable the use of Transport Layer Security (TLS) to encrypt the connection. When set to true, it ensures that the connection is secured using TLS encryption
+            required: false # If true, requires the use of the STARTTLS command. If the server doesn't support the STARTTLS command, or the command fails, the connect method will fail. Defaults to false.
+          connectiontimeout: 10000 #Socket connection timeout value in milliseconds. This timeout is implemented by java.net.Socket. Default is infinite timeout.
+          timeout: 10000 #Socket read timeout value in milliseconds. This timeout is implemented by java.net.Socket. Default is infinite timeout.
+          writetimeout: 10000 #Socket write timeout value in milliseconds. This timeout is implemented by using a java.util.concurrent.ScheduledExecutorService per connection that schedules a thread to close the socket if the timeout expires. Thus, the overhead of using this timeout is one thread per connection. Default is infinite timeout.
+    test-connection: false #Whether to test that the mail server is available on startup.
+    from-address: buland.malik@dhss.nc.gov
+    recipients:
+      - buland.malik@dhhs.nc.gov
