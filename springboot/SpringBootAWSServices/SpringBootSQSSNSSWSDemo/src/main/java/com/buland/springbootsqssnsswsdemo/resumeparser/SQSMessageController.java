@@ -25,10 +25,17 @@ public class SQSMessageController {
         return "Done!!!";
     }
 
+    @GetMapping("/mimicdlq")
+    //@ResponseBody
+    public String testMimicDLQ() {
+        sqsMessages.receiveMessagesAndThrowError();
+        return "Done!!!";
+    }
+
     @GetMapping("/dlq")
     //@ResponseBody
     public String testDLQ() {
-        sqsMessages.receiveMessagesAndThrowError();
+        sqsMessages.receiveDLQMessages();
         return "Done!!!";
     }
 

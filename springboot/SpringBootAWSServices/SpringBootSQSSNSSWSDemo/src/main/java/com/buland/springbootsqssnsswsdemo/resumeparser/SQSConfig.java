@@ -10,4 +10,6 @@ import org.springframework.context.annotation.Configuration;
 public class SQSConfig {
 
     private String resumeParserQueueURL;
+
+    private String resumeParserDlqQueueURL;
 }
